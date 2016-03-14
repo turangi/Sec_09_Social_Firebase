@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     @IBAction func fbBtnPressed(sender: UIButton!) {
         let facebookLogin = FBSDKLoginManager()
         
-        facebookLogin.logInWithReadPermissions(["email"],fromViewController: self) { (facebookResult: FBSDKLoginManagerLoginResult!, facebookError: NSError!) -> Void in
+        facebookLogin.logInWithReadPermissions(["email"]) { (facebookResult: FBSDKLoginManagerLoginResult!, facebookError: NSError!) -> Void in
             
             if facebookError != nil {
                 print("Facebook login failed. Error \(facebookError)")
@@ -46,7 +46,6 @@ class ViewController: UIViewController {
                     } else {
                         print("Logged In! \(authData)")
                         
-                        // In real practice, we should use an "if let" code block
                         let user = ["provider": authData.provider!, "blah":"test"]
                         DataService.ds.createFirebaseUser(authData.uid, user: user)
                         
@@ -79,13 +78,10 @@ class ViewController: UIViewController {
                             } else {
                                 NSUserDefaults.standardUserDefaults().setValue(result[KEY_UID], forKey: KEY_UID)
                                 
-                                DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: {
-                                    err, authData in
+                                DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { err, authData in
                                     
-                                    // after we've logged in and created a new accoubt
                                     let user = ["provider": authData.provider!, "blah":"emailtest"]
                                     DataService.ds.createFirebaseUser(authData.uid, user: user)
-                                    
                                 })
                             
                                 self.performSegueWithIdentifier(SEGUE_LOGGED_IN, sender: nil)

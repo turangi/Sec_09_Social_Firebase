@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Post {
     private var _postDescription: String!
     private var _imageUrl: String?
@@ -22,6 +21,10 @@ class Post {
     
     var imageUrl: String? {
         return _imageUrl
+    }
+    
+    var likes: Int {
+        return _likes
     }
     
     var username: String {
@@ -41,15 +44,12 @@ class Post {
             self._likes = likes
         }
         
-        if let imageUrl = dictionary["imageURL"] as? String {
-            self._imageUrl = imageUrl
+        if let imgUrl = dictionary["imageUrl"] as? String {
+            self._imageUrl = imgUrl
         }
         
         if let desc = dictionary["description"] as? String {
             self._postDescription = desc
         }
-        
-        
     }
-    
 }
