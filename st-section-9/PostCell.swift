@@ -30,12 +30,8 @@ class PostCell: UITableViewCell {
         
         showcaseImg.clipsToBounds = true
     }
-
-//    override func setSelected(selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//    }
     
+
     func configureCell(post: Post, img: UIImage?) {
         self.post = post
         
